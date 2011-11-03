@@ -86,9 +86,16 @@ class AmazonSNS
 	}
 	
 	
+	/**
+	 * Get the attributes of a topic like owner, ACL, display name
+	 * @param string $topicArn
+	 * @return array
+	 */
 	public function getTopicAttributes($topicArn)
 	{
+		$resultXml = $this->_request('GetTopicAttributes', array('TopicArn' => $topicArn));
 		
+		return $resultXml->GetTopicAttributeResult->Attributes;
 	}
 	
 	
