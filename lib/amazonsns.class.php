@@ -50,7 +50,7 @@ class AmazonSNS
 		
 		if(!is_null($authenticateOnUnsubscribe)) $params['AuthenticateOnUnsubscribe'] = $authenticateOnUnsubscribe;
 		
-		$resultXml = $this->request('ConfirmSubscription', $params);
+		$resultXml = $this->_request('ConfirmSubscription', $params);
 		
 		return strval($resultXml->ConfirmSubscriptionResult->SubscriptionArn);
 	}
@@ -63,7 +63,7 @@ class AmazonSNS
 	 */
 	public function createTopic($name)
 	{
-		$resultXml = $this->request('CreateTopic', array('Name' => $name));
+		$resultXml = $this->_request('CreateTopic', array('Name' => $name));
 		
 		return strval($resultXml->CreateTopicResult->TopicArn);
 	}
@@ -76,7 +76,7 @@ class AmazonSNS
 	 */
 	public function deleteTopic($topicArn)
 	{
-		$resultXml = $this->request('DeleteTopic', array('TopicArn' => $topicArn));
+		$resultXml = $this->_request('DeleteTopic', array('TopicArn' => $topicArn));
 		
 		return true;
 	}
@@ -106,7 +106,7 @@ class AmazonSNS
 	 */
 	public function listSubscriptionsByTopic($topicArn)
 	{
-		$resultXml = $this->request('ListSubscriptionsByTopic', array('TopicArn' => $topicArn));
+		$resultXml = $this->_request('ListSubscriptionsByTopic', array('TopicArn' => $topicArn));
 		
 		return $resultXml->ListSubscriptionsByTopicResult->Subscriptions;
 	}
@@ -119,7 +119,7 @@ class AmazonSNS
 	 */
 	public function listTopics($nextToken = null)
 	{
-		$resultXml = $this->request('ListTopics');
+		$resultXml = $this->_request('ListTopics');
 		
 		return $resultXml->ListTopicsResult->Topics;
 	}
@@ -134,7 +134,7 @@ class AmazonSNS
 	 */
 	public function publish($topicArn, $message, $subject = '')
 	{
-		$resultXml = $this->request('Publish', array
+		$resultXml = $this->_request('Publish', array
 			(
 				'TopicArn' => $topicArn,
 				'Message' => $message,
@@ -161,7 +161,7 @@ class AmazonSNS
 	 */
 	public function subscribe($topicArn, $protocol, $endpoint)
 	{
-		$resultXml = $this->request('Subscribe', array
+		$resultXml = $this->_request('Subscribe', array
 			(
 				'TopicArn' => $topicArn,
 				'Protocol' => $protocol,
@@ -180,7 +180,7 @@ class AmazonSNS
 	 */
 	public function unsubscribe($subscriptionArn)
 	{
-		$resultXml = $this->request('Unsubscribe', array('SubscriptionArn' => $subscriptionArn));
+		$resultXml = $this->_request('Unsubscribe', array('SubscriptionArn' => $subscriptionArn));
 		
 		return true;
 	}
@@ -192,7 +192,7 @@ class AmazonSNS
 	//
 	
 	
-	private function request($action, $params = array())
+	private function _request($action, $params = array())
 	{
 		// Add in required params
 		$params['Action'] = $action;
@@ -250,11 +250,10 @@ class AmazonSNS
 		else
 		{
 			// There was a problem
-			throw new Exception('There was a problem with this request - '.$info['http_code'].' response returned - '.$xmlResponse->Error->Code.' given - '.$xmlResponse->Error->Message);
+			throw new APIException('There was a problem with this request - '.$info['http_code'].' response returned - '.$xmlResponse->Error->Code.' given - '.$xmlResponse->Error->Message);
 		}
 	}
 }
 
-
-?>
-
+// Exception thrown if there's a problem with the API
+class APIException extends Exception {}
