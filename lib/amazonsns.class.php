@@ -22,7 +22,7 @@ class AmazonSNS
 		
 		if(empty($this->access_key) || empty($this->secret_key))
 		{
-			throw new Exception('Must define Amazon access key and secret key');
+			throw new InvalidArgumentException('Must define Amazon access key and secret key');
 		}
 	}
 	
@@ -48,7 +48,8 @@ class AmazonSNS
 				'Token' => $token
 			);
 		
-		if(!is_null($authenticateOnUnsubscribe)) $params['AuthenticateOnUnsubscribe'] = $authenticateOnUnsubscribe;
+		if(!is_null($authenticateOnUnsubscribe))
+			$params['AuthenticateOnUnsubscribe'] = $authenticateOnUnsubscribe;
 		
 		$resultXml = $this->_request('ConfirmSubscription', $params);
 		
