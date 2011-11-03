@@ -164,9 +164,23 @@ class AmazonSNS
 	}
 	
 	
+	/**
+	 * Set a single attribute on a topic
+	 * @param string $topicArn
+	 * @param string $attrName
+	 * @param mixed $attrValue
+	 * @return bool
+	 */
 	public function setTopicAttributes($topicArn, $attrName, $attrValue)
 	{
+		$resultXml = $this->_request('SetTopicAttributes', array
+			(
+				'AttributeName' => $attrName,
+				'AttributeValue' => $attrValue
+			)
+		);
 		
+		return true;
 	}
 	
 	
