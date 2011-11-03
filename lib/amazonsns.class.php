@@ -13,8 +13,16 @@ class AmazonSNS
 	private $access_key = '';
 	private $secret_key = '';
 	
-	private $endpoint = 'sns.us-east-1.amazonaws.com'; // sns.us-west-1.amazonaws.com sns.eu-west-1.amazonaws.com
+	private $protocol = 'https://'; // http is allowed
+	private $endpoint = ''; // Defaults to US-EAST-1
 	
+	private $endpoints = array(
+				'US-EAST-1' => 'sns.us-east-1.amazonaws.com',
+				'US-WEST-1' => 'sns.us-west-1.amazonaws.com',
+				'EU-WEST-1' => 'sns.eu-west-1.amazonaws.com',
+				'AP-SE-1' => 'sns.ap-southeast-1.amazonaws.com',
+				'AP-NE-1' => 'sns.ap-northeast-1.amazonaws.com'
+			);
 	
 	
 	public function __construct($access_key = null, $secret_key = null)
@@ -27,8 +35,25 @@ class AmazonSNS
 		{
 			throw new InvalidArgumentException('Must define Amazon access key and secret key');
 		}
+		
+		$this->setRegion('US-EAST-1');
 	}
 	
+	
+	/**
+	 * Set the SNS endpoint/region
+	 * @param string $region Available regions - US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1
+	 * @return string
+	 */
+	public function setRegion($region)
+	{
+		if(!in_array($region, $this->endpoints))
+		{
+			throw new InvalidArgumentException('Region unrecognised');
+		}
+		
+		return $this->endpoint = $this->endpoints[$region];
+	}
 	
 	
 	//
@@ -335,7 +360,7 @@ class AmazonSNS
 		);
 		
 		// Finally create request
-		$request = 'http://'.$this->endpoint.'/?' . http_build_query(
+		$request = $this->protocol . $this->endpoint . '/?' . http_build_query(
 			$params
 		);
 		
