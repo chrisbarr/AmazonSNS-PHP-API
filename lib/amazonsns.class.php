@@ -6,7 +6,7 @@
  * 
  * @author Chris Barr
  * @link http://aws.amazon.com/sns/
- * @version 0.1.0
+ * @version 0.2.0
  */
 class AmazonSNS
 {
