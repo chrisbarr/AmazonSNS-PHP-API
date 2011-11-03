@@ -2,8 +2,11 @@
 
 
 /**
- * API interface with the Amazon Simple Notification Service
+ * Lightweight API interface with the Amazon Simple Notification Service
+ * 
  * @author Chris Barr
+ * @link http://aws.amazon.com/sns/
+ * @version 0.1.0
  */
 class AmazonSNS
 {
