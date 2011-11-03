@@ -228,6 +228,24 @@ class AmazonSNS
 	
 	
 	/**
+	 * Remove a set of permissions indentified by topic and label that was used when creating permissions
+	 * @param string $topicArn
+	 * @param string $label
+	 * @return bool
+	 */
+	public function removePermission($topicArn, $label)
+	{
+		$resultXml = $this->_request('RemovePermission', array
+			(
+				'Label' => $label
+			)
+		);
+		
+		return true;
+	}
+	
+	
+	/**
 	 * Set a single attribute on a topic
 	 * @param string $topicArn
 	 * @param string $attrName
