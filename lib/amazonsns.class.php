@@ -22,7 +22,7 @@ class AmazonSNS
 		
 		if(empty($this->access_key) || empty($this->secret_key))
 		{
-			throw new InvalidArgumentException('Must define Amazon access key and secret key');
+			throw new Exception('Must define Amazon access key and secret key');
 		}
 	}
 	
@@ -50,16 +50,9 @@ class AmazonSNS
 		
 		if(!is_null($authenticateOnUnsubscribe)) $params['AuthenticateOnUnsubscribe'] = $authenticateOnUnsubscribe;
 		
-		try
-		{
-			$resultXml = $this->request('ConfirmSubscription', $params);
-			
-			return strval($resultXml->ConfirmSubscriptionResult->SubscriptionArn);
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('ConfirmSubscription', $params);
+		
+		return strval($resultXml->ConfirmSubscriptionResult->SubscriptionArn);
 	}
 	
 	
@@ -70,16 +63,9 @@ class AmazonSNS
 	 */
 	public function createTopic($name)
 	{
-		try
-		{
-			$resultXml = $this->request('CreateTopic', array('Name' => $name));
-			
-			return strval($resultXml->CreateTopicResult->TopicArn);
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('CreateTopic', array('Name' => $name));
+		
+		return strval($resultXml->CreateTopicResult->TopicArn);
 	}
 	
 	
@@ -90,16 +76,9 @@ class AmazonSNS
 	 */
 	public function deleteTopic($topicArn)
 	{
-		try
-		{
-			$resultXml = $this->request('DeleteTopic', array('TopicArn' => $topicArn));
-			
-			return true;
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('DeleteTopic', array('TopicArn' => $topicArn));
+		
+		return true;
 	}
 	
 	
@@ -127,16 +106,9 @@ class AmazonSNS
 	 */
 	public function listSubscriptionsByTopic($topicArn)
 	{
-		try
-		{
-			$resultXml = $this->request('ListSubscriptionsByTopic', array('TopicArn' => $topicArn));
-			
-			return $resultXml->ListSubscriptionsByTopicResult->Subscriptions;
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('ListSubscriptionsByTopic', array('TopicArn' => $topicArn));
+		
+		return $resultXml->ListSubscriptionsByTopicResult->Subscriptions;
 	}
 	
 	
@@ -147,16 +119,9 @@ class AmazonSNS
 	 */
 	public function listTopics($nextToken = null)
 	{
-		try
-		{
-			$resultXml = $this->request('ListTopics');
-			
-			return $resultXml->ListTopicsResult->Topics;
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('ListTopics');
+		
+		return $resultXml->ListTopicsResult->Topics;
 	}
 	
 	
@@ -169,22 +134,15 @@ class AmazonSNS
 	 */
 	public function publish($topicArn, $message, $subject = '')
 	{
-		try
-		{
-			$resultXml = $this->request('Publish', array
-				(
-					'TopicArn' => $topicArn,
-					'Message' => $message,
-					'Subject' => $subject
-				)
-			);
-			
-			return true;
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('Publish', array
+			(
+				'TopicArn' => $topicArn,
+				'Message' => $message,
+				'Subject' => $subject
+			)
+		);
+		
+		return true;
 	}
 	
 	
@@ -203,22 +161,15 @@ class AmazonSNS
 	 */
 	public function subscribe($topicArn, $protocol, $endpoint)
 	{
-		try
-		{
-			$resultXml = $this->request('Subscribe', array
-				(
-					'TopicArn' => $topicArn,
-					'Protocol' => $protocol,
-					'Endpoint' => $endpoint
-				)
-			);
-			
-			return true;
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('Subscribe', array
+			(
+				'TopicArn' => $topicArn,
+				'Protocol' => $protocol,
+				'Endpoint' => $endpoint
+			)
+		);
+		
+		return true;
 	}
 	
 	
@@ -229,16 +180,9 @@ class AmazonSNS
 	 */
 	public function unsubscribe($subscriptionArn)
 	{
-		try
-		{
-			$resultXml = $this->request('Unsubscribe', array('SubscriptionArn' => $subscriptionArn));
-			
-			return true;
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
+		$resultXml = $this->request('Unsubscribe', array('SubscriptionArn' => $subscriptionArn));
+		
+		return true;
 	}
 	
 	
@@ -306,10 +250,11 @@ class AmazonSNS
 		else
 		{
 			// There was a problem
-			throw new APIException('There was a problem with this request - '.$info['http_code'].' response returned - '.$xmlResponse->Error->Code.' given - '.$xmlResponse->Error->Message);
+			throw new Exception('There was a problem with this request - '.$info['http_code'].' response returned - '.$xmlResponse->Error->Code.' given - '.$xmlResponse->Error->Message);
 		}
 	}
 }
 
-// Exception thrown in there's a problem with the API
-class APIException extends Exception {}
+
+?>
+
