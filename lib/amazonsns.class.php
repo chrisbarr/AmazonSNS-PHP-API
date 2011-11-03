@@ -13,7 +13,7 @@ class AmazonSNS
 	private $access_key = '';
 	private $secret_key = '';
 	
-	private $endpoint = 'sns.us-east-1.amazonaws.com'; // sns.us-west-1.amazonaws.com sns-eu-west-1.amazonaws.com
+	private $endpoint = 'sns.us-east-1.amazonaws.com'; // sns.us-west-1.amazonaws.com sns.eu-west-1.amazonaws.com
 	
 	
 	
@@ -99,7 +99,14 @@ class AmazonSNS
 	 */
 	public function listSubscriptions($nextToken = null)
 	{
+		$params = array();
 		
+		$resultXml = $this->_request('ListSubscriptions');
+		
+		if(!is_null($nextToken))
+			$params['NextToken'] = $nextToken;
+		
+		return $resultXml->ListSubscriptionsResult->Subscriptions;
 	}
 	
 	
@@ -159,7 +166,7 @@ class AmazonSNS
 	/**
 	 * Subscribe to a topic
 	 * @param string $topicArn
-	 * @param string $protocol - http/https/email/email-json/sqs
+	 * @param string $protocol - http/https/email/email-json/sms/sqs
 	 * @param string $endpoint
 	 * @return bool
 	 */
