@@ -37,6 +37,69 @@ class AmazonSNS
 	
 	
 	/**
+	 * Add permissions to a topic
+	 * 
+	 * Example:
+	 * 	$AmazonSNS->addPermission('topic:arn:123', 'New Permission', array('987654321000' => 'Publish', '876543210000' => array('Publish', 'SetTopicAttributes')));
+	 * 
+	 * @param string $topicArn
+	 * @param string $label Unique name of permissions
+	 * @param array $permissions [optional] Array of permissions - member ID as keys, actions as values
+	 * @return bool
+	 */
+	public function addPermission($topicArn, $label, $permissions = array())
+	{
+		// Add standard params as normal
+		$params = array();
+		$params['TopicArn'] = $topicArn;
+		$params['Label'] = $label;
+		
+		
+		// Compile permissions into separate sequential arrays
+		$memberFlatArray = array();
+		$permissionFlatArray = array();
+		
+		foreach($permissions as $member => $permission)
+		{
+			if(is_array($permission))
+			{
+				// Array of permissions
+				foreach($permission as $singlePermission)
+				{
+					$memberFlatArray[] = $member;
+					$permissionFlatArray[] = $singlePermission;
+				}
+			}
+			else
+			{
+				// Just a single permission
+				$memberFlatArray[] = $member;
+				$permissionFlatArray[] = $permission;
+			}
+		}
+		
+		// Dummy check
+		if(count($memberFlatArray) !== count($permissionFlatArray))
+		{
+			// Something went wrong
+			throw new InvalidArgumentException('Mismatch of permissions to users');
+		}
+		
+		// Finally add to params
+		for($x = 1; $x <= count($memberFlatArray); $x++)
+		{
+			$params['ActionName.member.' . $x] = $permissionFlatArray[$x];
+			$params['AWSAccountID.member.' . $x] = $memberFlatArray[$x];
+		}
+		
+		// Finally send request
+		$resultXml = $this->_request('AddPermission', $params);
+		
+		return true;
+	}
+	
+	
+	/**
 	 * Confirm a subscription to a topic
 	 * @param string $topicArn
 	 * @param string $token
