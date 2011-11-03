@@ -108,10 +108,10 @@ class AmazonSNS
 	{
 		$params = array();
 		
-		$resultXml = $this->_request('ListSubscriptions');
-		
 		if(!is_null($nextToken))
 			$params['NextToken'] = $nextToken;
+		
+		$resultXml = $this->_request('ListSubscriptions', $params);
 		
 		return $resultXml->ListSubscriptionsResult->Subscriptions;
 	}
