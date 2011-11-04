@@ -195,7 +195,7 @@ class AmazonSNS
 	
 	/**
 	 * List subscriptions that user is subscribed to
-	 * @param string $nextToken [optional]
+	 * @param string $nextToken [optional] Token to retrieve next page of results
 	 * @return array
 	 */
 	public function listSubscriptions($nextToken = null)
@@ -214,11 +214,17 @@ class AmazonSNS
 	/**
 	 * List subscribers to a topic
 	 * @param string $topicArn
+	 * @param string $nextToken [optional] Token to retrieve next page of results
 	 * @return array
 	 */
-	public function listSubscriptionsByTopic($topicArn)
+	public function listSubscriptionsByTopic($topicArn, $nextToken = null)
 	{
-		$resultXml = $this->_request('ListSubscriptionsByTopic', array('TopicArn' => $topicArn));
+		$params = array('TopicArn' => $topicArn);
+		
+		if(!is_null($nextToken))
+			$params['NextToken'] = $nextToken;
+		
+		$resultXml = $this->_request('ListSubscriptionsByTopic', $params);
 		
 		return $resultXml->ListSubscriptionsByTopicResult->Subscriptions;
 	}
@@ -226,12 +232,17 @@ class AmazonSNS
 	
 	/**
 	 * List SNS topics
-	 * @param string $nextToken [optional]
+	 * @param string $nextToken [optional] Token to retrieve next page of results
 	 * @return array
 	 */
 	public function listTopics($nextToken = null)
 	{
-		$resultXml = $this->_request('ListTopics');
+		$params = array();
+		
+		if(!is_null($nextToken))
+			$params['NextToken'] = $nextToken;
+		
+		$resultXml = $this->_request('ListTopics', $params);
 		
 		return $resultXml->ListTopicsResult->Topics;
 	}
