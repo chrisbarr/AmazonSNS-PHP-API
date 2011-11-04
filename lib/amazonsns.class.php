@@ -401,3 +401,6 @@ class AmazonSNS
 
 // Exception thrown if there's a problem with the API
 class APIException extends Exception {}
+
+// Exception thrown if Amazon returns an error
+class SNSException extends Exception {}
