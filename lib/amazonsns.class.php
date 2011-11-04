@@ -252,8 +252,8 @@ class AmazonSNS
 	 * Publish a message to a topic
 	 * @param string $topicArn
 	 * @param string $message
-	 * @param string $subject [optional]
-	 * @return bool
+	 * @param string $subject [optional] Used when sending emails
+	 * @return string
 	 */
 	public function publish($topicArn, $message, $subject = '')
 	{
@@ -265,7 +265,7 @@ class AmazonSNS
 			)
 		);
 		
-		return true;
+		return strval($resultXml->PublishResult->MessageId);
 	}
 	
 	
