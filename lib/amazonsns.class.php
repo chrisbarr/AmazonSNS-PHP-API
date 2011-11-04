@@ -6,6 +6,7 @@
  * 
  * @author Chris Barr
  * @link http://aws.amazon.com/sns/
+ * @link http://docs.amazonwebservices.com/sns/latest/api/
  * @version 0.2.0
  */
 class AmazonSNS
@@ -27,6 +28,7 @@ class AmazonSNS
 	
 	/**
 	 * Instantiate the object - set access_key and secret_key and set default region
+	 * 
 	 * @param string $access_key [optional]
 	 * @param string $secret_key [optional]
 	 * @return void
@@ -48,6 +50,8 @@ class AmazonSNS
 	
 	/**
 	 * Set the SNS endpoint/region
+	 * 
+	 * @link http://docs.amazonwebservices.com/general/latest/gr/index.html?rande.html
 	 * @param string $region Available regions - US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1
 	 * @return string
 	 */
@@ -73,6 +77,7 @@ class AmazonSNS
 	 * Example:
 	 * 	$AmazonSNS->addPermission('topic:arn:123', 'New Permission', array('987654321000' => 'Publish', '876543210000' => array('Publish', 'SetTopicAttributes')));
 	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_AddPermission.html
 	 * @param string $topicArn
 	 * @param string $label Unique name of permissions
 	 * @param array $permissions [optional] Array of permissions - member ID as keys, actions as values
@@ -132,6 +137,8 @@ class AmazonSNS
 	
 	/**
 	 * Confirm a subscription to a topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_ConfirmSubscription.html
 	 * @param string $topicArn
 	 * @param string $token
 	 * @param bool $authenticateOnUnsubscribe [optional]
@@ -156,6 +163,8 @@ class AmazonSNS
 	
 	/**
 	 * Create an SNS topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_CreateTopic.html
 	 * @param string $name
 	 * @return string - TopicARN
 	 */
@@ -169,6 +178,8 @@ class AmazonSNS
 	
 	/**
 	 * Delete an SNS topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_DeleteTopic.html
 	 * @param string $topicArn
 	 * @return bool
 	 */
@@ -182,6 +193,8 @@ class AmazonSNS
 	
 	/**
 	 * Get the attributes of a topic like owner, ACL, display name
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_GetTopicAttributes.html
 	 * @param string $topicArn
 	 * @return array
 	 */
@@ -195,6 +208,8 @@ class AmazonSNS
 	
 	/**
 	 * List subscriptions that user is subscribed to
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_ListSubscriptions.html
 	 * @param string $nextToken [optional] Token to retrieve next page of results
 	 * @return array
 	 */
@@ -213,6 +228,8 @@ class AmazonSNS
 	
 	/**
 	 * List subscribers to a topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_ListSubscriptionsByTopic.html
 	 * @param string $topicArn
 	 * @param string $nextToken [optional] Token to retrieve next page of results
 	 * @return array
@@ -232,6 +249,8 @@ class AmazonSNS
 	
 	/**
 	 * List SNS topics
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_ListTopics.html
 	 * @param string $nextToken [optional] Token to retrieve next page of results
 	 * @return array
 	 */
@@ -250,6 +269,8 @@ class AmazonSNS
 	
 	/**
 	 * Publish a message to a topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_Publish.html
 	 * @param string $topicArn
 	 * @param string $message
 	 * @param string $subject [optional] Used when sending emails
@@ -271,6 +292,8 @@ class AmazonSNS
 	
 	/**
 	 * Remove a set of permissions indentified by topic and label that was used when creating permissions
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_RemovePermission.html
 	 * @param string $topicArn
 	 * @param string $label
 	 * @return bool
@@ -289,6 +312,8 @@ class AmazonSNS
 	
 	/**
 	 * Set a single attribute on a topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_SetTopicAttributes.html
 	 * @param string $topicArn
 	 * @param string $attrName
 	 * @param mixed $attrValue
@@ -309,6 +334,8 @@ class AmazonSNS
 	
 	/**
 	 * Subscribe to a topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_Subscribe.html
 	 * @param string $topicArn
 	 * @param string $protocol - http/https/email/email-json/sms/sqs
 	 * @param string $endpoint
@@ -330,6 +357,8 @@ class AmazonSNS
 	
 	/**
 	 * Unsubscribe a user from a topic
+	 * 
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_Unsubscribe.html
 	 * @param string $subscriptionArn
 	 * @return bool
 	 */
