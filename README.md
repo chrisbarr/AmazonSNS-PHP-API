@@ -3,8 +3,8 @@ This API wrapper is a lightweight alternative to the official [Amazon aws-sdk-fo
 
 Find out more about Amazon SNS here - http://aws.amazon.com/sns
 
-## How to use ##
-Include the script on your page:
+## How To Use ##
+Include the library on your page:
 
 	include('lib/amazonsns.class.php');
 
@@ -23,3 +23,24 @@ Subscribe to this topic:
 And send a message to subscribers of this topic:
 
 	$AmazonSNS->publish($topicArn, 'Hello, world!');
+
+## API Methods ##
+* `addPermission($topicArn, $label, $permissions)`
+* `confirmSubscription($topicArn, $token)`
+* `createTopic($name)`
+* `deleteTopic($topicArn)`
+* `getTopicAttributes($topicArn)`
+* `listSubscriptions()`
+* `listSubscriptionsByTopic($topicArn)`
+* `listTopics()`
+* `publish($topicArn, $message)`
+* `removePermission($topicArn, $label)`
+* `setTopicAttributes($topicArn, $attrName, $attrValue)`
+* `subscribe($topicArn, $protocol, $endpoint)`
+* `unsubscribe($subscriptionArn)`
+
+To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1 or AP-NE-1):
+
+* `setRegion($region)`
+
+*The default API region is US-EAST-1*
