@@ -7,7 +7,7 @@
  * @author Chris Barr
  * @link http://aws.amazon.com/sns/
  * @link http://docs.amazonwebservices.com/sns/latest/api/
- * @version 0.2.0
+ * @version 0.3.0
  */
 class AmazonSNS
 {
