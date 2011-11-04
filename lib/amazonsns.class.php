@@ -25,6 +25,12 @@ class AmazonSNS
 			);
 	
 	
+	/**
+	 * Instantiate the object - set access_key and secret_key and set default region
+	 * @param string $access_key [optional]
+	 * @param string $secret_key [optional]
+	 * @return void
+	 */
 	public function __construct($access_key = null, $secret_key = null)
 	{
 		if(!is_null($access_key)) $this->access_key = $access_key;
