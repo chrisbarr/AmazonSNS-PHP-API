@@ -25,6 +25,8 @@ And send a message to subscribers of this topic:
 	$AmazonSNS->publish($topicArn, 'Hello, world!');
 
 ## API Methods ##
+Available methods:
+
 * `addPermission($topicArn, $label, $permissions)`
 * `confirmSubscription($topicArn, $token)`
 * `createTopic($name)`
