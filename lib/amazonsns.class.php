@@ -425,17 +425,37 @@ class AmazonSNS
 		// Load XML reponse
 		$xmlResponse = simplexml_load_string($output);
 		
-		// Check request ok and no error
-		if($info['http_code'] == 200 && !isset($xmlResponse->Error))
+		
+		// Check return code
+		if($this->_checkGoodResponse($info['http_code']) === false)
 		{
-			// And return
-			return $xmlResponse;
+			// Response not in 200 range
+			if(isset($xmlResponse->Error))
+			{
+				// Amazon returned an XML error
+				throw new SNSException($xmlResponse->Error->Message, $xmlResponse->Error->Code);
+			}
+			else
+			{
+				// Some other problem
+				throw new APIException('There was a problem executing this request', $info['http_code']);
+			}
 		}
 		else
 		{
-			// There was a problem
-			throw new APIException('There was a problem with this request - '.$info['http_code'].' response returned - '.$xmlResponse->Error->Code.' given - '.$xmlResponse->Error->Message);
+			// All good
+			return $xmlResponse;
 		}
+	}
+	
+	
+	/**
+	 * Check the curl response code - anything in 200 range
+	 * @return bool
+	 */
+	private function _checkGoodResponse($code)
+	{
+		return floor($code / 100) === 2;
 	}
 }
 
