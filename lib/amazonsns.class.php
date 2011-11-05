@@ -455,7 +455,7 @@ class AmazonSNS
 	 */
 	private function _checkGoodResponse($code)
 	{
-		return floor($code / 100) === 2;
+		return floor($code / 100) == 2;
 	}
 }
 
