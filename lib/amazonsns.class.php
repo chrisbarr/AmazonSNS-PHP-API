@@ -57,7 +57,7 @@ class AmazonSNS
 	 */
 	public function setRegion($region)
 	{
-		if(!in_array($region, $this->endpoints))
+		if(!isset($this->endpoints[$region]))
 		{
 			throw new InvalidArgumentException('Region unrecognised');
 		}
