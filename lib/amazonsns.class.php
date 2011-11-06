@@ -202,7 +202,7 @@ class AmazonSNS
 	{
 		$resultXml = $this->_request('GetTopicAttributes', array('TopicArn' => $topicArn));
 		
-		return $resultXml->GetTopicAttributeResult->Attributes;
+		return $resultXml->GetTopicAttributesResult->Attributes;
 	}
 	
 	
