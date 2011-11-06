@@ -85,6 +85,9 @@ class AmazonSNS
 	 */
 	public function addPermission($topicArn, $label, $permissions = array())
 	{
+		if(empty($topicArn) || empty($label))
+			throw new InvalidArgumentException('Must supply TopicARN and a Label for this permission');
+		
 		// Add standard params as normal
 		$params = array();
 		$params['TopicArn'] = $topicArn;
@@ -146,6 +149,9 @@ class AmazonSNS
 	 */
 	public function confirmSubscription($topicArn, $token, $authenticateOnUnsubscribe = null)
 	{
+		if(empty($topicArn) || empty($token))
+			throw new InvalidArgumentException('Must supply a TopicARN and a Token to confirm subscription');
+		
 		$params = array
 			(
 				'TopicArn' => $topicArn,
@@ -170,6 +176,9 @@ class AmazonSNS
 	 */
 	public function createTopic($name)
 	{
+		if(empty($name))
+			throw new InvalidArgumentException('Must supply a Name to create topic');
+		
 		$resultXml = $this->_request('CreateTopic', array('Name' => $name));
 		
 		return strval($resultXml->CreateTopicResult->TopicArn);
@@ -185,6 +194,9 @@ class AmazonSNS
 	 */
 	public function deleteTopic($topicArn)
 	{
+		if(empty($topicArn))
+			throw new InvalidArgumentException('Must supply a TopicARN to delete a topic');
+		
 		$resultXml = $this->_request('DeleteTopic', array('TopicArn' => $topicArn));
 		
 		return true;
@@ -200,6 +212,9 @@ class AmazonSNS
 	 */
 	public function getTopicAttributes($topicArn)
 	{
+		if(empty($topicArn))
+			throw new InvalidArgumentException('Must supply a TopicARN to get topic attributes');
+		
 		$resultXml = $this->_request('GetTopicAttributes', array('TopicArn' => $topicArn));
 		
 		return $resultXml->GetTopicAttributesResult->Attributes;
@@ -236,6 +251,9 @@ class AmazonSNS
 	 */
 	public function listSubscriptionsByTopic($topicArn, $nextToken = null)
 	{
+		if(empty($topicArn))
+			throw new InvalidArgumentException('Must supply a TopicARN to show subscriptions to a topic');
+		
 		$params = array('TopicArn' => $topicArn);
 		
 		if(!is_null($nextToken))
@@ -278,6 +296,9 @@ class AmazonSNS
 	 */
 	public function publish($topicArn, $message, $subject = '')
 	{
+		if(empty($topicArn) || empty($message))
+			throw new InvalidArgumentException('Must supply a TopicARN and Message to publish to a topic');
+		
 		$resultXml = $this->_request('Publish', array
 			(
 				'TopicArn' => $topicArn,
@@ -300,6 +321,9 @@ class AmazonSNS
 	 */
 	public function removePermission($topicArn, $label)
 	{
+		if(empty($topicArn) || empty($label))
+			throw new InvalidArgumentException('Must supply a TopicARN and Label to remove a permission');
+		
 		$resultXml = $this->_request('RemovePermission', array
 			(
 				'Label' => $label
@@ -321,6 +345,9 @@ class AmazonSNS
 	 */
 	public function setTopicAttributes($topicArn, $attrName, $attrValue)
 	{
+		if(empty($topicArn) || empty($attrName) || empty($attrValue))
+			throw new InvalidArgumentException('Must supply a TopicARN, AttributeName and AttributeValue to set a topic attribute');
+		
 		$resultXml = $this->_request('SetTopicAttributes', array
 			(
 				'AttributeName' => $attrName,
@@ -343,6 +370,9 @@ class AmazonSNS
 	 */
 	public function subscribe($topicArn, $protocol, $endpoint)
 	{
+		if(empty($topicArn) || empty($protocol) || empty($endpoint))
+			throw new InvalidArgumentException('Must supply a TopicARN, Protocol and Endpoint to subscribe to a topic');
+		
 		$resultXml = $this->_request('Subscribe', array
 			(
 				'TopicArn' => $topicArn,
@@ -364,6 +394,9 @@ class AmazonSNS
 	 */
 	public function unsubscribe($subscriptionArn)
 	{
+		if(empty($subscriptionArn))
+			throw new InvalidArgumentException('Must supply a SubscriptionARN to unsubscribe from a topic');
+		
 		$resultXml = $this->_request('Unsubscribe', array('SubscriptionArn' => $subscriptionArn));
 		
 		return true;
