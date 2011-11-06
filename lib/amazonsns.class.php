@@ -409,6 +409,13 @@ class AmazonSNS
 	//
 	
 	
+	/**
+	 * Perform and process a cURL request
+	 * 
+	 * @param string $action
+	 * @param array $params [optional]
+	 * @return SimpleXMLElement
+	 */
 	private function _request($action, $params = array())
 	{
 		// Add in required params
