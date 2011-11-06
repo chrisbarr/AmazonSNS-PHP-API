@@ -3,10 +3,12 @@ This API wrapper is a lightweight alternative to the official [Amazon aws-sdk-fo
 
 Find out more about Amazon SNS here - http://aws.amazon.com/sns
 
+To use this wrapper you must be using PHP5 with cURL, and have an [Amazon AWS account](http://aws.amazon.com)
+
 ## Basic Use ##
 Download the latest version: https://github.com/chrisbarr/AmazonSNS-PHP-API/tarball/master
 
-Include the library on your page:
+Include the class on your page:
 
 	include('lib/amazonsns.class.php');
 
