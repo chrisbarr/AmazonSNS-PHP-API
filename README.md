@@ -3,7 +3,9 @@ This API wrapper is a lightweight alternative to the official [Amazon aws-sdk-fo
 
 Find out more about Amazon SNS here - http://aws.amazon.com/sns
 
-## How To Use ##
+## Basic Use ##
+Download the latest version: https://github.com/chrisbarr/AmazonSNS-PHP-API/tarball/master
+
 Include the library on your page:
 
 	include('lib/amazonsns.class.php');
@@ -46,3 +48,25 @@ To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1 or AP-NE-1):
 * `setRegion($region)`
 
 *The default API region is US-EAST-1*
+
+## Advanced Use ##
+A more complex example demonstrating catching Exceptions:
+
+	include('lib/amazonsns.class.php');
+	$AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
+	$AmazonSNS->setRegion('EU-WEST-1');
+	
+	try
+	{
+		$topics = $AmazonSNS->listTopics();
+	}
+	catch(SNSException $e)
+	{
+		// Amazon SNS returned an error
+		echo 'SNS returned the error "' . $e->getMessage() . '" and code ' . $e->getCode();
+	}
+	catch(APIException $e)
+	{
+		// Problem with the API
+		echo 'There was an unknown problem with the API, returned code ' . $e->getCode();
+	}
