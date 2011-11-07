@@ -226,7 +226,7 @@ class AmazonSNS
 		foreach($attributes as $attribute)
 		{
 			// Store attribute key as array key
-			$returnArray[$attribute->key] = strval($attribute->value);
+			$returnArray[strval($attribute->key)] = strval($attribute->value);
 		}
 		
 		return $returnArray;
