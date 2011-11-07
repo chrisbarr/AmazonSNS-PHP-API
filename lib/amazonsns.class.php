@@ -281,7 +281,18 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('ListTopics', $params);
 		
-		return $resultXml->ListTopicsResult->Topics;
+		// Get Topics
+		$topics = $resultXml->ListTopicsResult->Topics->member;
+		
+		$returnArray = array();
+		
+		// Process into array
+		foreach($topics as $topic)
+		{
+			$returnArray[] = strval($topic->TopicArn);
+		}
+		
+		return $returnArray;
 	}
 	
 	
