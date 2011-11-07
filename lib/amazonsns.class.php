@@ -217,7 +217,19 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('GetTopicAttributes', array('TopicArn' => $topicArn));
 		
-		return $resultXml->GetTopicAttributesResult->Attributes;
+		// Get attributes
+		$attributes = $resultXml->GetTopicAttributesResult->Attributes->entry;
+		
+		$returnArray = array();
+		
+		// Process into array
+		foreach($attributes as $attribute)
+		{
+			// Store attribute key as array key
+			$returnArray[strval($attribute->key)] = strval($attribute->value);
+		}
+		
+		return $returnArray;
 	}
 	
 	
