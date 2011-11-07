@@ -237,7 +237,28 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('ListSubscriptions', $params);
 		
-		return $resultXml->ListSubscriptionsResult->Subscriptions;
+		// Get subscriptions
+		$subs = $resultXml->ListSubscriptionsResult->Subscriptions->member;
+		
+		$returnArray = array();
+		
+		// Process into array
+		foreach($subs as $sub)
+		{
+			$elementArray = array();
+			
+			// Loop through each element
+			foreach($sub as $key => $element)
+			{
+				// Use strval() to make sure no SimpleXMLElement objects remain
+				$elementArray[$key] = strval($element);
+			}
+			
+			// Store array of elements
+			$returnArray[] = $elementArray;
+		}
+		
+		return $returnArray;
 	}
 	
 	
