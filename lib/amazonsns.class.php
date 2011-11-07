@@ -343,7 +343,17 @@ class AmazonSNS
 		// Process into array
 		foreach($topics as $topic)
 		{
-			$returnArray[] = strval($topic->TopicArn);
+			$elementArray = array();
+			
+			// Loop through each element
+			foreach($topic as $key => $element)
+			{
+				// Use strval() to make sure no SimpleXMLElement objects remain
+				$elementArray[$key] = strval($element);
+			}
+			
+			// Store array of elements
+			$returnArray[] = $elementArray;
 		}
 		
 		return $returnArray;
