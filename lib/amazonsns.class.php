@@ -20,6 +20,7 @@ class AmazonSNS
 	private $endpoints = array(
 				'US-EAST-1' => 'sns.us-east-1.amazonaws.com',
 				'US-WEST-1' => 'sns.us-west-1.amazonaws.com',
+				'US-WEST-2' => 'sns.us-west-2.amazonaws.com',
 				'EU-WEST-1' => 'sns.eu-west-1.amazonaws.com',
 				'AP-SE-1' => 'sns.ap-southeast-1.amazonaws.com',
 				'AP-NE-1' => 'sns.ap-northeast-1.amazonaws.com'
