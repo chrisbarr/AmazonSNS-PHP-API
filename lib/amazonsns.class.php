@@ -300,13 +300,12 @@ class AmazonSNS
 		if(empty($topicArn) || empty($message))
 			throw new InvalidArgumentException('Must supply a TopicARN and Message to publish to a topic');
 		
-		$resultXml = $this->_request('Publish', array
-			(
-				'TopicArn' => $topicArn,
-				'Message' => $message,
-				'Subject' => $subject
-			)
-		);
+		$params = array('TopicArn' => $topicArn, 'Message' => $message);
+		
+		if(!empty($subject))
+			$params['Subject'] = $subject;
+		
+		$resultXml = $this->_request('Publish', $params);
 		
 		return strval($resultXml->PublishResult->MessageId);
 	}
