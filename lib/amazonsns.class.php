@@ -549,7 +549,7 @@ class AmazonSNS
 			if(isset($xmlResponse->Error))
 			{
 				// Amazon returned an XML error
-				throw new SNSException($xmlResponse->Error->Message, $xmlResponse->Error->Code);
+				throw new SNSException(strval($xmlResponse->Error->Message), intval($xmlResponse->Error->Code));
 			}
 			else
 			{
