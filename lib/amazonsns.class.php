@@ -7,7 +7,7 @@
  * @author Chris Barr
  * @link http://aws.amazon.com/sns/
  * @link http://docs.amazonwebservices.com/sns/latest/api/
- * @version 0.4.1
+ * @version 0.4.2
  */
 class AmazonSNS
 {
@@ -548,7 +548,7 @@ class AmazonSNS
 			if(isset($xmlResponse->Error))
 			{
 				// Amazon returned an XML error
-				throw new SNSException(strval($xmlResponse->Error->Message), intval($xmlResponse->Error->Code));
+				throw new SNSException(strval($xmlResponse->Error->Code) . ': ' . strval($xmlResponse->Error->Message), $info['http_code']);
 			}
 			else
 			{
