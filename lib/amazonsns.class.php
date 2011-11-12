@@ -221,6 +221,7 @@ class AmazonSNS
 		// Get attributes
 		$attributes = $resultXml->GetTopicAttributesResult->Attributes->entry;
 		
+		// Unfortunately cannot use _processXmlToArray here, so process manually
 		$returnArray = array();
 		
 		// Process into array
@@ -512,6 +513,8 @@ class AmazonSNS
 	
 	/**
 	 * Check the curl response code - anything in 200 range
+	 * 
+	 * @param int $code
 	 * @return bool
 	 */
 	private function _checkGoodResponse($code)
