@@ -253,25 +253,7 @@ class AmazonSNS
 		// Get subscriptions
 		$subs = $resultXml->ListSubscriptionsResult->Subscriptions->member;
 		
-		$returnArray = array();
-		
-		// Process into array
-		foreach($subs as $sub)
-		{
-			$elementArray = array();
-			
-			// Loop through each element
-			foreach($sub as $key => $element)
-			{
-				// Use strval() to make sure no SimpleXMLElement objects remain
-				$elementArray[$key] = strval($element);
-			}
-			
-			// Store array of elements
-			$returnArray[] = $elementArray;
-		}
-		
-		return $returnArray;
+		return $this->_processXmlToArray($subs);
 	}
 	
 	
@@ -298,25 +280,7 @@ class AmazonSNS
 		// Get subscriptions
 		$subs = $resultXml->ListSubscriptionsByTopicResult->Subscriptions->member;
 		
-		$returnArray = array();
-		
-		// Process into array
-		foreach($subs as $sub)
-		{
-			$elementArray = array();
-			
-			// Loop through each element
-			foreach($sub as $key => $element)
-			{
-				// Use strval() to make sure no SimpleXMLElement objects remain
-				$elementArray[$key] = strval($element);
-			}
-			
-			// Store array of elements
-			$returnArray[] = $elementArray;
-		}
-		
-		return $returnArray;
+		return $this->_processXmlToArray($subs);
 	}
 	
 	
@@ -339,25 +303,7 @@ class AmazonSNS
 		// Get Topics
 		$topics = $resultXml->ListTopicsResult->Topics->member;
 		
-		$returnArray = array();
-		
-		// Process into array
-		foreach($topics as $topic)
-		{
-			$elementArray = array();
-			
-			// Loop through each element
-			foreach($topic as $key => $element)
-			{
-				// Use strval() to make sure no SimpleXMLElement objects remain
-				$elementArray[$key] = strval($element);
-			}
-			
-			// Store array of elements
-			$returnArray[] = $elementArray;
-		}
-		
-		return $returnArray;
+		return $this->_processXmlToArray($topics);
 	}
 	
 	
@@ -571,6 +517,36 @@ class AmazonSNS
 	private function _checkGoodResponse($code)
 	{
 		return floor($code / 100) == 2;
+	}
+	
+	
+	/**
+	 * Transform the standard AmazonSNS XML array format into a normal array
+	 * 
+	 * @param SimpleXMLElement $xmlArray
+	 * @return array
+	 */
+	private function _processXmlToArray(SimpleXMLElement $xmlArray)
+	{
+		$returnArray = array();
+		
+		// Process into array
+		foreach($xmlArray as $xmlElement)
+		{
+			$elementArray = array();
+			
+			// Loop through each element
+			foreach($xmlElement as $key => $element)
+			{
+				// Use strval() to make sure no SimpleXMLElement objects remain
+				$elementArray[$key] = strval($element);
+			}
+			
+			// Store array of elements
+			$returnArray[] = $elementArray;
+		}
+		
+		return $returnArray;
 	}
 }
 
