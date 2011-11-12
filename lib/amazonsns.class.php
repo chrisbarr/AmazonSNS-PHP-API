@@ -218,7 +218,20 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('GetTopicAttributes', array('TopicArn' => $topicArn));
 		
-		return $resultXml->GetTopicAttributesResult->Attributes;
+		// Get attributes
+		$attributes = $resultXml->GetTopicAttributesResult->Attributes->entry;
+		
+		// Unfortunately cannot use _processXmlToArray here, so process manually
+		$returnArray = array();
+		
+		// Process into array
+		foreach($attributes as $attribute)
+		{
+			// Store attribute key as array key
+			$returnArray[strval($attribute->key)] = strval($attribute->value);
+		}
+		
+		return $returnArray;
 	}
 	
 	
@@ -238,7 +251,10 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('ListSubscriptions', $params);
 		
-		return $resultXml->ListSubscriptionsResult->Subscriptions;
+		// Get subscriptions
+		$subs = $resultXml->ListSubscriptionsResult->Subscriptions->member;
+		
+		return $this->_processXmlToArray($subs);
 	}
 	
 	
@@ -262,7 +278,10 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('ListSubscriptionsByTopic', $params);
 		
-		return $resultXml->ListSubscriptionsByTopicResult->Subscriptions;
+		// Get subscriptions
+		$subs = $resultXml->ListSubscriptionsByTopicResult->Subscriptions->member;
+		
+		return $this->_processXmlToArray($subs);
 	}
 	
 	
@@ -282,7 +301,10 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('ListTopics', $params);
 		
-		return $resultXml->ListTopicsResult->Topics;
+		// Get Topics
+		$topics = $resultXml->ListTopicsResult->Topics->member;
+		
+		return $this->_processXmlToArray($topics);
 	}
 	
 	
@@ -491,11 +513,43 @@ class AmazonSNS
 	
 	/**
 	 * Check the curl response code - anything in 200 range
+	 * 
+	 * @param int $code
 	 * @return bool
 	 */
 	private function _checkGoodResponse($code)
 	{
 		return floor($code / 100) == 2;
+	}
+	
+	
+	/**
+	 * Transform the standard AmazonSNS XML array format into a normal array
+	 * 
+	 * @param SimpleXMLElement $xmlArray
+	 * @return array
+	 */
+	private function _processXmlToArray(SimpleXMLElement $xmlArray)
+	{
+		$returnArray = array();
+		
+		// Process into array
+		foreach($xmlArray as $xmlElement)
+		{
+			$elementArray = array();
+			
+			// Loop through each element
+			foreach($xmlElement as $key => $element)
+			{
+				// Use strval() to make sure no SimpleXMLElement objects remain
+				$elementArray[$key] = strval($element);
+			}
+			
+			// Store array of elements
+			$returnArray[] = $elementArray;
+		}
+		
+		return $returnArray;
 	}
 }
 
