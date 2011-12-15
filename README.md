@@ -54,6 +54,7 @@ To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1 or SA-E
 ## Advanced Use ##
 A more complex example demonstrating catching Exceptions:
 
+	<?php
 	include('lib/amazonsns.class.php');
 	$AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
 	$AmazonSNS->setRegion('EU-WEST-1');
