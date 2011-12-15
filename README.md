@@ -45,7 +45,7 @@ Available methods:
 * `subscribe($topicArn, $protocol, $endpoint)`
 * `unsubscribe($subscriptionArn)`
 
-To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1 or AP-NE-1):
+To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1 or SA-EAST-1):
 
 * `setRegion($region)`
 
