@@ -373,7 +373,7 @@ class AmazonSNS
 		
 		$resultXml = $this->_request('SetTopicAttributes', array
 			(
-        'TopicArn' => $topicArn,
+				'TopicArn' => $topicArn,
 				'AttributeName' => $attrName,
 				'AttributeValue' => $attrValue
 			)
