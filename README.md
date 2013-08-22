@@ -20,6 +20,10 @@ Create a Topic:
 
 	$topicArn = $AmazonSNS->createTopic('My New SNS Topic');
 
+Set the Topic's Display Name (required):
+
+  $result = $AmazonSNS->SetTopicAttributes($topicArn, 'DisplayName', 'My SNS Topic Display Name');
+  
 Subscribe to this topic:
 
 	$AmazonSNS->subscribe($topicArn, 'email', 'example@github.com');
