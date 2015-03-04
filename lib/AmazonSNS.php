@@ -16,17 +16,19 @@ class AmazonSNS {
 	/** @var string $protocol */
 	private $protocol = 'https://'; // http is allowed
 	/** @var string $endpoint */
-	private $endpoint = ''; // Defaults to US-EAST-1
+	private $endpoint = ''; // Defaults to us-east-1
 
 	/** @var array $endpoints */
 	private $endpoints = array(
-		'US-EAST-1' => 'sns.us-east-1.amazonaws.com',
-		'US-WEST-1' => 'sns.us-west-1.amazonaws.com',
-		'US-WEST-2' => 'sns.us-west-2.amazonaws.com',
-		'EU-WEST-1' => 'sns.eu-west-1.amazonaws.com',
-		'AP-SE-1' => 'sns.ap-southeast-1.amazonaws.com',
-		'AP-NE-1' => 'sns.ap-northeast-1.amazonaws.com',
-		'SA-EAST-1' => 'sns.sa-east-1.amazonaws.com'
+		'us-east-1' => 'sns.us-east-1.amazonaws.com',
+		'us-west-2' => 'sns.us-west-2.amazonaws.com',
+		'us-west-1' => 'sns.us-west-1.amazonaws.com',
+		'eu-west-1' => 'sns.eu-west-1.amazonaws.com',
+		'eu-central-1' => 'ec2.eu-central-1.amazonaws.com',
+		'ap-southeast-1' => 'sns.ap-southeast-1.amazonaws.com',
+		'ap-southeast-2' => 'sns.ap-southeast-2.amazonaws.com',
+		'ap-northeast-1' => 'sns.ap-northeast-1.amazonaws.com',
+		'sa-east-1' => 'sns.sa-east-1.amazonaws.com'
 	);
 
 	/**
@@ -37,7 +39,7 @@ class AmazonSNS {
 	 * @param string $region [optional]
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($access_key, $secret_key, $region = 'US-EAST-1') {
+	public function __construct($access_key, $secret_key, $region = 'us-east-1') {
 		$this->access_key = $access_key;
 		$this->secret_key = $secret_key;
 
@@ -52,7 +54,7 @@ class AmazonSNS {
 	 * Set the SNS endpoint/region
 	 *
 	 * @link http://docs.amazonwebservices.com/general/latest/gr/index.html?rande.html
-	 * @param string $region Available regions - US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1
+	 * @param string $region
 	 * @return string
 	 * @throws InvalidArgumentException
 	 */

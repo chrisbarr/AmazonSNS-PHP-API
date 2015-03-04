@@ -62,11 +62,11 @@ Available methods:
 * `subscribe($topicArn, $protocol, $endpoint)`
 * `unsubscribe($subscriptionArn)`
 
-To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1 or SA-EAST-1):
+To set the API region (us-east-1, us-west-2, us-west-1, eu-west-1, etc):
 
 * `setRegion($region)`
 
-*The default API region is US-EAST-1*
+*The default API region is us-east-1*
 
 ## Further Example
 Make sure to catch Exceptions where necessary:
@@ -76,7 +76,7 @@ Make sure to catch Exceptions where necessary:
 require 'vendor/autoload.php';
 
 $AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
-$AmazonSNS->setRegion('EU-WEST-1');
+$AmazonSNS->setRegion('eu-west-1');
 
 try {
 	$topics = $AmazonSNS->listTopics();
