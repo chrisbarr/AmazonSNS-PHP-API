@@ -1,0 +1,21 @@
+{
+  "name": "chrisbarr/amazon-sns-php-api",
+  "type": "library",
+  "description": "Amazon SNS PHP API",
+  "homepage": "https://github.com/chrisbarr/AmazonSNS-PHP-API",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Chris Barr",
+      "email": "chris.barr@ntlworld.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.2"
+  },
+  "autoload": {
+    "psr-0": {
+      "AmazonSNS": "lib/"
+    }
+  }
+}

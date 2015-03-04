@@ -1,38 +1,51 @@
-# Amazon SNS PHP API v0.5.1 Documentation #
+# Amazon SNS PHP API v1.0.0 Documentation
+
 This API wrapper is a lightweight alternative to the official [Amazon aws-sdk-for-php](http://aws.amazon.com/sdkforphp) for access to Amazon SNS (Simple Notification Service) using PHP
 
 Find out more about Amazon SNS here - http://aws.amazon.com/sns
 
 To use this wrapper you must be using PHP5 with cURL, and have an [Amazon AWS account](http://aws.amazon.com)
 
-## Basic Use ##
-Download the latest version: https://github.com/chrisbarr/AmazonSNS-PHP-API/tarball/master
+## Basic Use
+Install using [Composer](https://getcomposer.org/) on the command line:
+```
+$ composer require chrisbarr/amazon-sns-php-api
+```
 
-Include the class on your page:
+Or add it to your composer.json file:
 
-	include('lib/amazonsns.class.php');
+```
+{
+	...
+	"require": {
+		"chrisbarr/amazon-sns-php-api": "~1.0"
+	}
+}
+```
 
-Create a connection to the API:
+Example usage:
 
-	$AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
+```php
+<?php
+require 'vendor/autoload.php';
 
-Create a Topic:
+// Create an instance
+$AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
 
-	$topicArn = $AmazonSNS->createTopic('My New SNS Topic');
+// Create a Topic
+$topicArn = $AmazonSNS->createTopic('My New SNS Topic');
 
-Set the Topic's Display Name (required):
+// Set the Topic's Display Name (required)
+$AmazonSNS->setTopicAttributes($topicArn, 'DisplayName', 'My SNS Topic Display Name');
 
-	$result = $AmazonSNS->setTopicAttributes($topicArn, 'DisplayName', 'My SNS Topic Display Name');
+// Subscribe to this topic
+$AmazonSNS->subscribe($topicArn, 'email', 'example@github.com');
 
-Subscribe to this topic:
+// And send a message to subscribers of this topic
+$AmazonSNS->publish($topicArn, 'Hello, world!');
+```
 
-	$AmazonSNS->subscribe($topicArn, 'email', 'example@github.com');
-
-And send a message to subscribers of this topic:
-
-	$AmazonSNS->publish($topicArn, 'Hello, world!');
-
-## API Methods ##
+## API Methods
 Available methods:
 
 * `addPermission($topicArn, $label, $permissions)`
@@ -55,25 +68,25 @@ To set the API region (US-EAST-1, US-WEST-1, EU-WEST-1, AP-SE-1, AP-NE-1 or SA-E
 
 *The default API region is US-EAST-1*
 
-## Advanced Use ##
-A more complex example demonstrating catching Exceptions:
+## Further Example
+Make sure to catch Exceptions where necessary:
 
-	<?php
-	include('lib/amazonsns.class.php');
-	$AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
-	$AmazonSNS->setRegion('EU-WEST-1');
-	
-	try
-	{
-		$topics = $AmazonSNS->listTopics();
-	}
-	catch(SNSException $e)
-	{
-		// Amazon SNS returned an error
-		echo 'SNS returned the error "' . $e->getMessage() . '" and code ' . $e->getCode();
-	}
-	catch(APIException $e)
-	{
-		// Problem with the API
-		echo 'There was an unknown problem with the API, returned code ' . $e->getCode();
-	}
+```php
+<?php
+require 'vendor/autoload.php';
+
+$AmazonSNS = new AmazonSNS(AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY);
+$AmazonSNS->setRegion('EU-WEST-1');
+
+try {
+	$topics = $AmazonSNS->listTopics();
+}
+catch(SNSException $e) {
+	// Amazon SNS returned an error
+	echo 'SNS returned the error "' . $e->getMessage() . '" and code ' . $e->getCode();
+}
+catch(APIException $e) {
+	// Problem with the API
+	echo 'There was an unknown problem with the API, returned code ' . $e->getCode();
+}
+```

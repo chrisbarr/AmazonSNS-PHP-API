@@ -3,16 +3,15 @@
 /**
  * Lightweight API interface with the Amazon Simple Notification Service
  *
- * @author Chris Barr
+ * @author Chris Barr <chris.barr@ntlworld.com>
  * @link http://aws.amazon.com/sns/
  * @link http://docs.amazonwebservices.com/sns/latest/api/
- * @version 0.5.1
  */
 class AmazonSNS {
 	/** @var string $access_key */
-	private $access_key = '';
+	private $access_key;
 	/** @var string $secret_key */
-	private $secret_key = '';
+	private $secret_key;
 
 	/** @var string $protocol */
 	private $protocol = 'https://'; // http is allowed
@@ -33,23 +32,20 @@ class AmazonSNS {
 	/**
 	 * Instantiate the object - set access_key and secret_key and set default region
 	 *
-	 * @param string|null $access_key [optional]
-	 * @param string|null $secret_key [optional]
+	 * @param string $access_key
+	 * @param string $secret_key
+	 * @param string $region [optional]
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($access_key = null, $secret_key = null) {
-		if(!is_null($access_key)) {
-			$this->access_key = $access_key;
-		}
-		if(!is_null($secret_key)) {
-			$this->secret_key = $secret_key;
-		}
+	public function __construct($access_key, $secret_key, $region = 'US-EAST-1') {
+		$this->access_key = $access_key;
+		$this->secret_key = $secret_key;
 
 		if(empty($this->access_key) || empty($this->secret_key)) {
 			throw new InvalidArgumentException('Must define Amazon access key and secret key');
 		}
 
-		$this->setRegion('US-EAST-1');
+		$this->setRegion($region);
 	}
 
 	/**
