@@ -1,4 +1,4 @@
-# Amazon SNS PHP API v1.0.0 Documentation
+# Amazon SNS PHP API
 
 This API wrapper is a lightweight alternative to the official [Amazon aws-sdk-for-php](http://aws.amazon.com/sdkforphp) for access to Amazon SNS (Simple Notification Service) using PHP
 
