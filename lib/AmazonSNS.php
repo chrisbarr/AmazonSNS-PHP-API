@@ -432,7 +432,7 @@ class AmazonSNS {
 		// Add in required params
 		$params['Action'] = $action;
 		$params['AWSAccessKeyId'] = $this->access_key;
-		$params['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z');
+		$params['Timestamp'] = gmdate('Y-m-d\TH:i:s.000\Z');
 		$params['SignatureVersion'] = 2;
 		$params['SignatureMethod'] = 'HmacSHA256';
 
@@ -456,7 +456,7 @@ class AmazonSNS {
 		);
 
 		// Finally create request
-		$request = $this->protocol . $this->endpoint . '/?' . http_build_query($params);
+		$request = $this->protocol . $this->endpoint . '/?' . http_build_query($params, '', '&');
 
 		// Instantiate cUrl and perform request
 		$ch = curl_init();
