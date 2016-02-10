@@ -56,7 +56,7 @@ Available methods:
 * `listSubscriptions()`
 * `listSubscriptionsByTopic($topicArn)`
 * `listTopics()`
-* `publish($topicArn, $message)`
+* `publish($topicArn, $message, $subject, $messageStructure)`
 * `removePermission($topicArn, $label)`
 * `setTopicAttributes($topicArn, $attrName, $attrValue)`
 * `subscribe($topicArn, $protocol, $endpoint)`
