@@ -445,7 +445,7 @@ class AmazonSNS {
 	}
 
 	/*
-	 * Delete Platform endpoint
+	 * Delete endpoint
 	 *
 	 * @link http://docs.aws.amazon.com/sns/latest/api/API_DeleteEndpoint.html
 	 * @param string $devicearn
