@@ -420,53 +420,53 @@ class AmazonSNS {
 		return true;
 	}
 
-		/**
+	/**
 	 * Create Platform endpoint
 	 *
 	 * @link http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformEndpoint.html
-	 * @param string $platformapplicationarn
+	 * @param string $platformApplicationArn
 	 * @param string $token 
-	 * @param string $userdata
+	 * @param string $userData
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function createPlatformEndpoint($platformapplicationarn, $token, $userdata) {
-		if(empty($platformapplicationarn) || empty($token) || empty($userdata)) {
-			throw new InvalidArgumentException('Must supply a Platformapplicationarn,Token & Userdata to create platform endpoint');
+	public function createPlatformEndpoint($platformApplicationArn, $token, $userData) {
+		if(empty($platformApplicationArn) || empty($token) || empty($userData)) {
+			throw new InvalidArgumentException('Must supply a PlatformApplicationArn,Token & UserData to create platform endpoint');
 		}
 
-	$response=	$this->_request('CreatePlatformEndpoint', array(
-			'PlatformApplicationArn' => $platformapplicationarn,
+		$response = $this->_request('CreatePlatformEndpoint', array(
+			'PlatformApplicationArn' => $platformApplicationArn,
 			'Token' => $token,
-			'CustomUserData' => $userdata
+			'CustomUserData' => $userData
 		));
-		
+
 		return strval($response->CreatePlatformEndpointResult->EndpointArn);
 	}
 
-	/*
+	/**
 	 * Delete endpoint
 	 *
 	 * @link http://docs.aws.amazon.com/sns/latest/api/API_DeleteEndpoint.html
-	 * @param string $devicearn
-	
+	 * @param string $deviceArn
+	 *
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function deleteEndpoint($devicearn) {
-		if(empty($devicearn)) {
+	public function deleteEndpoint($deviceArn) {
+		if(empty($deviceArn)) {
 			throw new InvalidArgumentException('Must supply a DeviceARN to remove platform endpoint');
 		}
 
-	$response=	$this->_request('DeleteEndpoint', array(
-			'EndpointArn' => $devicearn,
+		$this->_request('DeleteEndpoint', array(
+			'EndpointArn' => $deviceArn,
 			
 		));
 
 		return true;
 	}
-	
-	
+
+
 	//
 	// Private functions
 	//
