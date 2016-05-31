@@ -443,6 +443,7 @@ class AmazonSNS {
 		
 		return strval($response->CreatePlatformEndpointResult->EndpointArn);
 	}
+
 	/*
 	 * Delete Platform endpoint
 	 *
