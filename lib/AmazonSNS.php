@@ -467,7 +467,7 @@ class AmazonSNS {
 	}
 
 	/**
-	 * Push a message to an Endpoint
+	 * Publish a message to an Endpoint
 	 *
 	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_Publish.html
 	 * @param string $deviceArn
@@ -475,7 +475,7 @@ class AmazonSNS {
 	 * @return string
 	 * @throws InvalidArgumentException
 	 */
-	public function pushToEndpoint($deviceArn, $message) {
+	public function publishToEndpoint($deviceArn, $message) {
 		if (empty($deviceArn) || empty($message)) {
 			throw new InvalidArgumentException('Must supply DeviceArn and Message');
 		}
