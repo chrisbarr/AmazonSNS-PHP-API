@@ -465,24 +465,28 @@ class AmazonSNS {
 
 		return true;
 	}
-    
-    /**
-     * Push a message to an Endpoint
-     *
-     * @link http://docs.amazonwebservices.com/sns/latest/api/API_Publish.html
-     * @param string $deviceArn
-     * @param string $message    
-     * @return string
-     * @throws InvalidArgumentException
-     */
-    public function pushToEndpoint($deviceArn, $message) {
-        if (empty($deviceArn) || empty($message)) {
-            throw new InvalidArgumentException('Must supply DeviceArn and Message');
-        }
-        $params = array('TargetArn' => $deviceArn, 'Message' => $message);
-        $resultXml = $this -> _request('Publish', $params);
-        return strval($resultXml -> PublishResult -> MessageId);
-    }
+
+	/**
+	 * Push a message to an Endpoint
+	 *
+	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_Publish.html
+	 * @param string $deviceArn
+	 * @param string $message    
+	 * @return string
+	 * @throws InvalidArgumentException
+	 */
+	public function pushToEndpoint($deviceArn, $message) {
+		if (empty($deviceArn) || empty($message)) {
+			throw new InvalidArgumentException('Must supply DeviceArn and Message');
+		}
+
+		$resultXml = $this->_request('Publish', array(
+			'TargetArn' => $deviceArn,
+			'Message' => $message)
+		);
+
+		return strval($resultXml->PublishResult->MessageId);
+	}
 
 	//
 	// Private functions
