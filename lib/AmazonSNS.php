@@ -595,7 +595,7 @@ class AmazonSNS {
 				// Use strval() to make sure no SimpleXMLElement objects remain
 				$elementArray[$key] = strval($element);
 			}
-c
+
 			// Store array of elements
 			$returnArray[] = $elementArray;
 		}
