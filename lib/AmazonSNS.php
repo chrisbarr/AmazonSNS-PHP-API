@@ -534,6 +534,7 @@ class AmazonSNS {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $request);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
 
 		$output = curl_exec($ch);
 		$info = curl_getinfo($ch);
