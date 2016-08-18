@@ -385,7 +385,7 @@ class AmazonSNS {
 	 * @param string $topicArn
 	 * @param string $protocol - http/https/email/email-json/sms/sqs
 	 * @param string $endpoint
-	 * @return bool
+	 * @return string $SubscriptionArn
 	 * @throws InvalidArgumentException
 	 */
 	public function subscribe($topicArn, $protocol, $endpoint) {
@@ -393,13 +393,13 @@ class AmazonSNS {
 			throw new InvalidArgumentException('Must supply a TopicARN, Protocol and Endpoint to subscribe to a topic');
 		}
 
-		$this->_request('Subscribe', array(
+		$response = $this->_request('Subscribe', array(
 			'TopicArn' => $topicArn,
 			'Protocol' => $protocol,
 			'Endpoint' => $endpoint
 		));
 
-		return true;
+		return strval($response->SubscribeResult->SubscriptionArn);
 	}
 
 	/**
