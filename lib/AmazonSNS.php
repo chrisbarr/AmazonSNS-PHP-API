@@ -437,7 +437,7 @@ class AmazonSNS {
 	 *
 	 * @link http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformEndpoint.html
 	 * @param string $platformApplicationArn
-	 * @param string $token 
+	 * @param string $token
 	 * @param string $userData
 	 * @return bool
 	 * @throws InvalidArgumentException
@@ -471,8 +471,7 @@ class AmazonSNS {
 		}
 
 		$this->_request('DeleteEndpoint', array(
-			'EndpointArn' => $deviceArn,
-			
+			'EndpointArn' => $deviceArn
 		));
 
 		return true;
@@ -483,7 +482,7 @@ class AmazonSNS {
 	 *
 	 * @link http://docs.amazonwebservices.com/sns/latest/api/API_Publish.html
 	 * @param string $deviceArn
-	 * @param string $message    
+	 * @param string $message
 	 * @return string
 	 * @throws InvalidArgumentException
 	 */
