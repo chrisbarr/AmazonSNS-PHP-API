@@ -246,7 +246,13 @@ class AmazonSNS {
 		// Get subscriptions
 		$subs = $resultXml->ListSubscriptionsResult->Subscriptions->member;
 
-		return $this->_processXmlToArray($subs);
+		$return = ['members' => $this->_processXmlToArray($subs)];
+
+		if(isset($resultXml->ListSubscriptionsResult->NextToken)) {
+			$return['nextToken'] = strval($resultXml->ListSubscriptionsResult->NextToken);
+		}
+
+		return $return;
 	}
 
 	/**
@@ -276,7 +282,13 @@ class AmazonSNS {
 		// Get subscriptions
 		$subs = $resultXml->ListSubscriptionsByTopicResult->Subscriptions->member;
 
-		return $this->_processXmlToArray($subs);
+		$return = ['members' => $this->_processXmlToArray($subs)];
+
+		if(isset($resultXml->ListSubscriptionsByTopicResult->NextToken)) {
+			$return['nextToken'] = strval($resultXml->ListSubscriptionsByTopicResult->NextToken);
+		}
+
+		return $return;
 	}
 
 	/**
