@@ -543,8 +543,13 @@ class AmazonSNS {
 
 		// Instantiate cUrl and perform request
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $request);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		//fix amazon  SSL protocol error
+        curl_setopt($ch, CURLOPT_URL, $request);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36");
+        curl_setopt($ch, CURLOPT_SSLVERSION, 4);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
 		$output = curl_exec($ch);
 		$info = curl_getinfo($ch);
