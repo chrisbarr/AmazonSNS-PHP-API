@@ -439,7 +439,7 @@ class AmazonSNS {
 	 * @param string $platformApplicationArn
 	 * @param string $token
 	 * @param string $userData
-	 * @return bool
+	 * @return string
 	 * @throws InvalidArgumentException
 	 */
 	public function createPlatformEndpoint($platformApplicationArn, $token, $userData) {
