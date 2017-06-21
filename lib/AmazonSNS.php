@@ -442,19 +442,24 @@ class AmazonSNS {
 	 * @return string
 	 * @throws InvalidArgumentException
 	 */
-	public function createPlatformEndpoint($platformApplicationArn, $token, $userData) {
-		if(empty($platformApplicationArn) || empty($token) || empty($userData)) {
-			throw new InvalidArgumentException('Must supply a PlatformApplicationArn,Token & UserData to create platform endpoint');
-		}
+    public function createPlatformEndpoint($platformApplicationArn, $token, $userData = null) {
+        if(empty($platformApplicationArn) || empty($token)) {
+            throw new InvalidArgumentException('Must supply a PlatformApplicationArn & Token to create platform endpoint');
+        }
 
-		$response = $this->_request('CreatePlatformEndpoint', array(
-			'PlatformApplicationArn' => $platformApplicationArn,
-			'Token' => $token,
-			'CustomUserData' => $userData
-		));
+        $attributes = array(
+            'PlatformApplicationArn' => $platformApplicationArn,
+            'Token' => $token
+        );
 
-		return strval($response->CreatePlatformEndpointResult->EndpointArn);
-	}
+        if (!empty($userData)) {
+            $attributes['CustomUserData'] = $userData;
+        }
+
+        $response = $this->_request('CreatePlatformEndpoint', $attributes);
+
+        return strval($response->CreatePlatformEndpointResult->EndpointArn);
+    }
 
 	/**
 	 * Delete endpoint
