@@ -1,5 +1,8 @@
 # Amazon SNS PHP API
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/chrisbarr/amazon-sns-php-api.svg)](https://packagist.org/packages/chrisbarr/amazon-sns-php-api)
+![PHP from Packagist](https://img.shields.io/packagist/php-v/chrisbarr/amazon-sns-php-api.svg)
+
 This API wrapper is a lightweight alternative to the official [Amazon aws-sdk-for-php](http://aws.amazon.com/sdkforphp) for access to Amazon SNS (Simple Notification Service) using PHP
 
 Find out more about Amazon SNS here - http://aws.amazon.com/sns
