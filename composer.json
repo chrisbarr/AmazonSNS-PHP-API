@@ -2,6 +2,7 @@
   "name": "chrisbarr/amazon-sns-php-api",
   "type": "library",
   "description": "Amazon SNS PHP API",
+  "keywords": ["aws", "amazon", "sns"],
   "homepage": "https://github.com/chrisbarr/AmazonSNS-PHP-API",
   "license": "MIT",
   "authors": [

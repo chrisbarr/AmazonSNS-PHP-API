@@ -20,15 +20,25 @@ class AmazonSNS {
 
 	/** @var array $endpoints */
 	private $endpoints = array(
+		'us-east-2' => 'sns.us-east-2.amazonaws.com',
 		'us-east-1' => 'sns.us-east-1.amazonaws.com',
-		'us-west-2' => 'sns.us-west-2.amazonaws.com',
 		'us-west-1' => 'sns.us-west-1.amazonaws.com',
-		'eu-west-1' => 'sns.eu-west-1.amazonaws.com',
-		'eu-central-1' => 'ec2.eu-central-1.amazonaws.com',
+		'us-west-2' => 'sns.us-west-2.amazonaws.com',
+		'ap-northeast-1' => 'sns.ap-northeast-1.amazonaws.com',
+		'ap-northeast-2' => 'sns.ap-northeast-2.amazonaws.com',
+		'ap-northeast-3' => 'sns.ap-northeast-3.amazonaws.com',
+		'ap-south-1' => 'sns.ap-south-1.amazonaws.com',
 		'ap-southeast-1' => 'sns.ap-southeast-1.amazonaws.com',
 		'ap-southeast-2' => 'sns.ap-southeast-2.amazonaws.com',
-		'ap-northeast-1' => 'sns.ap-northeast-1.amazonaws.com',
-		'sa-east-1' => 'sns.sa-east-1.amazonaws.com'
+		'ca-central-1' => 'sns.ca-central-1.amazonaws.com',
+		'cn-north-1' => 'sns.cn-north-1.amazonaws.com.cn',
+		'cn-northwest-1' => 'sns.cn-northwest-1.amazonaws.com.cn',
+		'eu-central-1' => 'sns.eu-central-1.amazonaws.com',
+		'eu-west-1' => 'sns.eu-west-1.amazonaws.com',
+		'eu-west-2' => 'sns.eu-west-2.amazonaws.com',
+		'eu-west-3' => 'sns.eu-west-3.amazonaws.com',
+		'sa-east-1' => 'sns.sa-east-1.amazonaws.com',
+		'us-gov-west-1' => 'sns.us-gov-west-1.amazonaws.com',
 	);
 
 	/**
