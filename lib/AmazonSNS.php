@@ -63,7 +63,16 @@ class AmazonSNS {
 			throw new InvalidArgumentException('Region unrecognised');
 		}
 
-		return $this->endpoint = $this->endpoints[$region];
+		return $this->endpoint = $this->protocol . $this->endpoints[$region];
+	}
+
+	/**
+	 * Manually set the AWS API endpoint
+	 *
+	 * @param string $endpoint
+	 */
+	public function setEndpoint($endpoint) {
+		$this->endpoint = $endpoint;
 	}
 
 
@@ -544,7 +553,7 @@ class AmazonSNS {
 		);
 
 		// Finally create request
-		$request = $this->protocol . $this->endpoint . '/?' . http_build_query($params, '', '&');
+		$request = $this->endpoint . '/?' . http_build_query($params, '', '&');
 
 		// Instantiate cUrl and perform request
 		$ch = curl_init();
