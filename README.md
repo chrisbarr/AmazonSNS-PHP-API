@@ -52,7 +52,7 @@ $AmazonSNS->publish($topicArn, 'Hello, world!');
 Available methods:
 
 * `addPermission($topicArn, $label, $permissions)`
-* `confirmSubscription($topicArn, $token)`
+* `confirmSubscription($topicArn, $token, $authenticateOnUnsubscribe = null)`
 * `createTopic($name)`
 * `deleteTopic($topicArn)`
 * `getTopicAttributes($topicArn)`
