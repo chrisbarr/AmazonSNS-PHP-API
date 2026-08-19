@@ -1,5 +1,3 @@
-
-
 # Amazon SNS PHP API
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/chrisbarr/amazon-sns-php-api.svg)](https://packagist.org/packages/chrisbarr/amazon-sns-php-api)
